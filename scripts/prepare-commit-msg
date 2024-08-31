@@ -1,17 +1,16 @@
-#!/bin/bash
+#!/bin/sh
+echo "Fetching JIRA ticket from branch name" >> /tmp/prepare-commit-msg.log
 
-echo "fetching JIRA ticket from branch name"
-
-# Extract the jira ticket
+# Extract the branch name
 BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
 BRANCH_TYPE=$(echo "$BRANCH_NAME" | cut -d'/' -f1)
 TICKET_NUMBER=$(echo "$BRANCH_NAME" | grep -o "JIRA-[0-9]\+")
 
-echo "type $BRANCH_TYPE"
-echo "ticket number  $TICKET_NUMBER"
+echo "Type: $BRANCH_TYPE" >> /tmp/prepare-commit-msg.log
+echo "Ticket Number: $TICKET_NUMBER" >> /tmp/prepare-commit-msg.log
 
 # Prepend the ticket number to the commit message if it exists
 if [ -n "$TICKET_NUMBER" ]; then
     COMMIT_PREFIX="[$TICKET_NUMBER] $BRANCH_TYPE : "
-    sed -i.bak -e "1s/^/$COMMIT_PREFIX/" "$1"
+    sed -i '' -e "1s/^/$COMMIT_PREFIX/" "$1"
 fi
