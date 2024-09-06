@@ -1,0 +1,6 @@
+[JIRA-TICKET] [TYPE]: [SHORT DESCRIPTION]
+
+Detailed description of the commit.
+
+Changes:
+- List the changes made
