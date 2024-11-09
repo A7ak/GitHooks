@@ -7,6 +7,8 @@ android {
     namespace = "com.example.githooks"
     compileSdk = 34
 
+    project.tasks["preBuild"].dependsOn("copyPrepareCommitMsgHook")
+
     defaultConfig {
         applicationId = "com.example.githooks"
         minSdk = 24
