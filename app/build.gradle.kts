@@ -55,3 +55,18 @@ tasks.register<Copy>("copyPrepareCommitMsgHook") {
     from( "$rootDir/scripts/prepare-commit-msg")
     into( "$rootDir/.git/hooks/")
 }
+
+tasks.register("setExecutablePermission") {
+    doLast {
+        val processBuilder = ProcessBuilder("chmod", "+x", "$rootDir/.git/hooks/prepare-commit-msg")
+        val process = processBuilder.start()
+        val exitCode = process.waitFor()
+
+        if (exitCode == 0) {
+            println("Executable permissions set for prepare-commit-msg")
+        } else {
+            println("Failed to set permissions for prepare-commit-msg")
+        }
+    }
+}
+
